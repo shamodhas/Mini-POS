@@ -22,8 +22,7 @@ export function saveCustomerDB(customer) {
 
 export function updateCustomerDB(customer) {
     let customer_data_arr = getAllCustomerDB();
-    let index = customer_data_arr.findIndex(existsCustomer => existsCustomer.customer_id === customer.customer_id )
-    customer_data_arr[index].id = customer.customer_id;
+    let index = customer_data_arr.findIndex(existsCustomer => existsCustomer._customer_id === customer.customer_id );
     customer_data_arr[index].customer_nic = customer.customer_nic;
     customer_data_arr[index].customer_name = customer.customer_name;
     customer_data_arr[index].customer_salary = customer.customer_salary;
@@ -33,7 +32,7 @@ export function updateCustomerDB(customer) {
 
 export function deleteCustomerDB(customer) {
     let customer_data_arr = getAllCustomerDB();
-    customer_data_arr.splice(customer_data_arr.findIndex(existsCustomer => existsCustomer.customer_id === customer.customer_id), 1)
+    customer_data_arr.splice(customer_data_arr.findIndex(existsCustomer => existsCustomer._customer_id === customer.customer_id), 1)
     localStorage.setItem(customerData, JSON.stringify(customer_data_arr));
 }
 
@@ -58,8 +57,7 @@ export function saveItemDB(item) {
 
 export function updateItemDB(item) {
     let item_data_arr = getAllItemDB();
-    let index = item_data_arr.findIndex(existsItem => existsItem.item_code === item.item_code )
-    item_data_arr[index].id = item.item_code;
+    let index = item_data_arr.findIndex(existsItem => existsItem._item_code === item.item_code )
     item_data_arr[index].item_name = item.item_name;
     item_data_arr[index].item_price = item.item_price;
     item_data_arr[index].item_quantity = item.item_quantity;
@@ -68,7 +66,7 @@ export function updateItemDB(item) {
 
 export function deleteItemDB(item) {
     let item_data_arr = getAllItemDB();
-    item_data_arr.splice(item_data_arr.findIndex(existsItem => existsItem.item_code === item.item_code), 1)
+    item_data_arr.splice(item_data_arr.findIndex(existsItem => existsItem._item_code === item.item_code), 1)
     localStorage.setItem(itemData, JSON.stringify(item_data_arr));
 }
 

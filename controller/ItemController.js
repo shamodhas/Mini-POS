@@ -6,6 +6,7 @@ export class ItemController {
         $('#btnItemSave').click(this.handleSaveItemValidation.bind(this));
         $('#btnItemUpdate').click(this.handleUpdateItemValidation.bind(this));
         $('#btnItemDelete').click(this.handleDeleteItemValidation.bind(this));
+        $('#tblCustomerBody').click(event=>this.handleSelectItem(event));
 
         this.handleSaveItem.bind(this);
         this.handleLoadItem();
@@ -97,6 +98,7 @@ export class ItemController {
 
         updateItemDB(item);
         this.handleLoadItem();
+        $('#btnItemEdit').prop( "disabled", true);
     }
 
     handleDeleteItemValidation(){
@@ -121,6 +123,19 @@ export class ItemController {
 
         deleteItemDB(item);
         this.handleLoadItem();
+        $('#btnItemEdit').prop( "disabled", true);
+    }
+
+    handleSelectItem(event){
+        let row = $(event.target).closest('tr').find('td');
+        $('#tblItemBody tr').removeClass('selected');
+        $(event.target).closest('tr').addClass('selected');
+        $('#btnItemEdit').prop( "disabled", false);
+
+        $('#txtEditItemCode').val(row.eq(0).text());
+        $('#txtEditItemName').val(row.eq(1).text());
+        $('#txtEditItemPrice').val(row.eq(2).text());
+        $('#txtEditItemQuantity').val(row.eq(3).text());
     }
 }
 

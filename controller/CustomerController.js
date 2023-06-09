@@ -6,18 +6,16 @@ export class CustomerController {
         $('#btnCustomerSave').click(this.handleSaveCustomerValidation.bind(this));
         $('#btnCustomerUpdate').click(this.handleUpdateCustomerValidation.bind(this));
         $('#btnCustomerDelete').click(this.handleDeleteCustomerValidation.bind(this));
-
+        $('#tblCustomerBody').click(event=>this.handleSelectCustomer(event));
         this.handleSaveCustomer.bind(this);
         this.handleLoadCustomers();
     }
 
     handleLoadCustomers() {
-        let customer_data_arr = getAllCustomerDB();
-
         $('#tblCustomerBody').empty();
 
-        customer_data_arr.map((result, index) => {
-            var row = "<tr class='row-data'>" +
+        getAllCustomerDB().map((result, index) => {
+            var row = "<tr class='customer-row-data'>" +
                 "<td>" + result._customer_id + "</td>" +
                 "<td>" + result._customer_nic + "</td>" +
                 "<td>" + result._customer_name + "</td>" +
@@ -76,7 +74,7 @@ export class CustomerController {
         var customer_salary = $('#txtEditCustomerSalary').val();
         var customer_address = $('#txtEditCustomerAddress').val();
 
-        (getAllCustomerDB().findIndex(customer => customer.customer_id === customer_id ) < 0) ?
+        (getAllCustomerDB().findIndex(customer => customer._customer_id === customer_id ) < 0) ?
             alert("not found customer") :
             (!customer_nic) ?
                 alert('Invalid Nic') :
@@ -106,11 +104,12 @@ export class CustomerController {
 
         updateCustomerDB(customer);
         this.handleLoadCustomers();
+        $('#btnCustomerEdit').prop( "disabled", true);
     }
 
     handleDeleteCustomerValidation(){
         var customer_id = $('#txtEditCustomerID').val();
-        (getAllCustomerDB().findIndex(customer => customer.customer_id === customer_id ) < 0) ?
+        (getAllCustomerDB().findIndex(customer => customer._customer_id === customer_id ) < 0) ?
             alert("not found customer") :
             this.handleDeleteCustomer();
     }
@@ -132,6 +131,20 @@ export class CustomerController {
 
         deleteCustomerDB(customer);
         this.handleLoadCustomers();
+        $('#btnCustomerEdit').prop( "disabled", true);
+    }
+
+    handleSelectCustomer(event){
+        let row = $(event.target).closest('tr').find('td');
+        $('#tblCustomerBody tr').removeClass('selected');
+        $(event.target).closest('tr').addClass('selected');
+        $('#btnCustomerEdit').prop( "disabled", false);
+
+        $('#txtEditCustomerID').val(row.eq(0).text());
+        $('#txtEditCustomerNIC').val(row.eq(1).text());
+        $('#txtEditCustomerName').val(row.eq(2).text());
+        $('#txtEditCustomerSalary').val(row.eq(3).text());
+        $('#txtEditCustomerAddress').val(row.eq(4).text());
     }
 }
 

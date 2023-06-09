@@ -12,7 +12,7 @@ export class Customer {
     }
 
     get customer_id() {
-        return _customer_id;
+        return this._customer_id;
     }
 
     set customer_nic(customer_nic) {
@@ -20,7 +20,7 @@ export class Customer {
     }
 
     get customer_nic() {
-        return _customer_nic;
+        return this._customer_nic;
     }
 
     set customer_name(customer_name) {
@@ -28,7 +28,7 @@ export class Customer {
     }
 
     get customer_name() {
-        return _customer_name;
+        return this._customer_name;
     }
 
     set customer_salary(customer_salary) {
@@ -36,7 +36,7 @@ export class Customer {
     }
 
     get customer_salary() {
-        return _customer_salary;
+        return this._customer_salary;
     }
 
     set customer_address(customer_address) {
@@ -44,6 +44,6 @@ export class Customer {
     }
 
     get customer_address() {
-        return _customer_address;
+        return this._customer_address;
     }
 }
