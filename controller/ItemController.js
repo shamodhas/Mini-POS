@@ -6,7 +6,7 @@ export class ItemController {
         $('#btnItemSave').click(this.handleSaveItemValidation.bind(this));
         $('#btnItemUpdate').click(this.handleUpdateItemValidation.bind(this));
         $('#btnItemDelete').click(this.handleDeleteItemValidation.bind(this));
-        $('#tblCustomerBody').click(event=>this.handleSelectItem(event));
+        $('#tblItemBody').click(event=>this.handleSelectItem(event));
 
         this.handleSaveItem.bind(this);
         this.handleLoadItem();
@@ -72,7 +72,7 @@ export class ItemController {
 
         const regexNumber = /^\d+$/;
 
-        (getAllItemDB().findIndex(item => item.customer_id === item_code ) < 0) ?
+        (getAllItemDB().findIndex(item => item._item_code === item_code ) < 0) ?
             alert("not found item") :
             (!item_name) ?
                 alert('Invalid Name') :
@@ -103,7 +103,7 @@ export class ItemController {
 
     handleDeleteItemValidation(){
         var item_code = $('#txtEditItemCode').val();
-        (getAllItemDB().findIndex(item => item.customer_id === item_code ) < 0) ?
+        (getAllItemDB().findIndex(item => item._item_code === item_code ) < 0) ?
             alert("not found item") :
             this.handleDeleteItem();
     }
